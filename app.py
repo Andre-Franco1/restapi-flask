@@ -2,6 +2,9 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask_mongoengine import MongoEngine
 from flask_restful import reqparse, abort, Api, Resource
+from validate_docbr import CPF
+import re
+
 
 
 app = Flask(__name__)
@@ -46,6 +49,7 @@ _user_parser.add_argument('birth_date',
 
 api = Api(app)
 db = MongoEngine(app)
+cpf = CPF()
 
 
 class UserModel(db.Document):
@@ -64,7 +68,12 @@ class Users(Resource):
 class User(Resource):
     def post(self):
         data = _user_parser.parse_args()
-        UserModel(**data).save()
+
+        if not cpf.validate(data["cpf"]):
+            return {"message": "CPF is invalid!"}, 400
+        
+        response = UserModel(**data).save()
+        return {"message": "User %s successfully created!" % response.id}
 
     def get(self, cpf):
         return {"message": "CPF"}
