@@ -48,7 +48,7 @@ class TestApplication():
         assert response.json[0]["first_name"] == "John"
         assert response.json[0]["last_name"] == "Doe"
         assert response.json[0]["cpf"] == "734.004.100-12"
-        assert response.json[0]["email"] == "johndoe@gmail.com"
+        assert response.json[0]["email"] == "johndoe@mail.com"
 
         birth_date = response.json[0]["birth_date"]["$date"]
         assert birth_date == "2001-01-01T00:00:00Z"
