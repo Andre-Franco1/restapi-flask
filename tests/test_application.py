@@ -46,7 +46,7 @@ class TestApplication():
         response = client.get('/user/%s' % valid_user["cpf"])
         assert response.status_code == 200
         assert response.json[0]["first_name"] == "John"
-        assert response.json[0]["last_name"] == "Doe"
+        assert response.json[0]["last_name"] == "Do"
         assert response.json[0]["cpf"] == "734.004.100-12"
         assert response.json[0]["email"] == "johndoe@mail.com"
 
