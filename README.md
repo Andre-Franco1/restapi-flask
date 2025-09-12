@@ -1,8 +1,4 @@
 # Flask REST API
-
-[![Python](https://img.shields.io/badge/python-3.12-blue)](https://www.python.org/) 
-[![Flask](https://img.shields.io/badge/flask-2.x-orange)](https://flask.palletsprojects.com/)  
-
 A RESTful API built with **Flask**, **MongoDB**, and **Docker**, designed for learning and demonstration purposes.  
 The API provides operations for users and is ready for deployment in both **local** and **production** environments.
 
