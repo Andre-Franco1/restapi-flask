@@ -1,6 +1,6 @@
 # Flask REST API
-A RESTful API built with **Flask**, **MongoDB**, and **Docker**, designed for learning and demonstration purposes.
 
+A RESTful API built with **Flask**, **MongoDB**, and **Docker**, designed for learning and demonstration purposes.
 The API provides operations for users and is ready for deployment in both **local** and **production** environments.
 
 ---
