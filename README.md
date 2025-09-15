@@ -87,7 +87,7 @@ Set the following environment variables for production in the Heroku application
 
 ---
 
-## API Endpoints ##
+## API Endpoints
 
 | Method | Endpoint      | Description       |
 | ------ | ------------- | ----------------- |
@@ -100,7 +100,7 @@ Example request (POST /user):
 {
   "first_name": "John",
   "last_name": "Doe",
-  "cpf": "123.456.789-09",
+  "cpf": "635.631.290-45",
   "email": "johndoe@mail.com",
   "birth_date": "2001-01-01"
 }
@@ -109,4 +109,29 @@ Example request (POST /user):
 
 ---
 
-## Running Tests ##
+## Running Tests
+
+```bash
+make test
+```
+
+- Runs pytest and flake8 for code linting and unit tests.
+
+---
+
+## Deployment
+
+### Heroku (Docker)
+
+```bash
+make heroku
+```
+
+- Logs into Heroku container registry, pushes the Docker image, and releases the web process.
+
+---
+
+## Notes
+
+- The API is containerized using Docker; local MongoDB is used for development, and MongoDB Atlas is used in production.
+- The application uses an app factory pattern, making it easier to scale and test.
