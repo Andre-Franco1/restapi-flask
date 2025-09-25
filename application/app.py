@@ -6,31 +6,21 @@ from .model import UserModel, HealthCheckModel
 
 
 _user_parser = reqparse.RequestParser()
-_user_parser.add_argument('first_name',
-                          type=str,
-                          required=True,
-                          help="This field cannot be blank."
-                          )
-_user_parser.add_argument('last_name',
-                          type=str,
-                          required=True,
-                          help="This field cannot be blank."
-                          )
-_user_parser.add_argument('cpf',
-                          type=str,
-                          required=True,
-                          help="This field cannot be blank."
-                          )
-_user_parser.add_argument('email',
-                          type=str,
-                          required=True,
-                          help="This field cannot be blank."
-                          )
-_user_parser.add_argument('birth_date',
-                          type=str,
-                          required=True,
-                          help="This field cannot be blank."
-                          )
+_user_parser.add_argument(
+    "first_name", type=str, required=True, help="This field cannot be blank."
+)
+_user_parser.add_argument(
+    "last_name", type=str, required=True, help="This field cannot be blank."
+)
+_user_parser.add_argument(
+    "cpf", type=str, required=True, help="This field cannot be blank."
+)
+_user_parser.add_argument(
+    "email", type=str, required=True, help="This field cannot be blank."
+)
+_user_parser.add_argument(
+    "birth_date", type=str, required=True, help="This field cannot be blank."
+)
 
 
 cpf = CPF()
