@@ -50,3 +50,22 @@ jobs:
 
           docker build -t ${ecr_registry}/${ecr_repository}:dev-${short_sha} .
           docker push ${ecr_registry}/${ecr_repository}:dev-${short_sha}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502
+        with:
+          role-to-assume: arn:aws:iam::288761732111:role/restapi-gh-actions-oidc-role
+          role-session-name: github-actions-restapi
+          aws-region: us-east-1
+      - name: Deploy to Kubernetes
+        run: |
+          aws eks --region us-east-1 update-kubeconfig --name restapi-cluster
