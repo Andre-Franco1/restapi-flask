@@ -1,0 +1,12 @@
+- name: Remove journal config block
+  replace:
+    path: /etc/mongod.conf
+    regexp: '^\s*journal:\n\s*enabled:\s*true\n'
+    replace: ''
+  register: journal_patch
+
+- name: Restart mongod if journal block removed
+  service:
+    name: mongod
+    state: restarted
+  when: journal_patch.changed
