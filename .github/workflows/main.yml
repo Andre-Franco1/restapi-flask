@@ -26,6 +26,10 @@ jobs:
       id-token: write
       contents: read
 
+    env:
+      ecr_registry: 288761732111.dkr.ecr.us-east-1.amazonaws.com
+      ecr_repository: restapi-ecr
+
     steps:
       - uses: actions/checkout@v3
       - name: configure aws credentials
@@ -38,3 +42,11 @@ jobs:
       - name: Build Docker image
         run: |
           aws sts get-caller-identity
+
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ecr_registry}
+
+          sha=${{ github.sha }}
+          short_sha=${sha:0:7}
+
+          docker build -t ${ecr_registry}/${ecr_repository}:dev-${short_sha} .
+          docker push ${ecr_registry}/${ecr_repository}:dev-${short_sha}
