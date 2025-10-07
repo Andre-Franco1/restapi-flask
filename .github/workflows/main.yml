@@ -1,4 +1,4 @@
-name: Deploy Heroku
+name: Deploy Kubernetes
 
 on:
   push:
@@ -16,22 +16,15 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install flake8 pytest mongomock black
-
       - name: Run tests
         run: make test
 
-  deploy:
+  build:
     needs: test
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh
-
-      - name: Deploy to Heroku
-        run: make heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      - name: Build
+        run: |
+          aws sts get-caller-identity
