@@ -19,7 +19,6 @@ setup-dev:
 	  --timeout=270s
 	@helm upgrade \
 	  --install \
-	  --set image.tag=8.0 \
 	  --set auth.rootPassword="root" \
 	mongodb kubernetes/charts/mongodb
 	@kubectl wait \
