@@ -1,8 +1,11 @@
 aniso8601==10.0.1
+bandit==1.8.6
+black==25.9.0
 blinker==1.9.0
 click==8.2.1
 dnspython==2.8.0
 email-validator==2.3.0
+flake8==7.3.0
 Flask==2.2.5
 flask-mongoengine==1.0.0
 Flask-RESTful==0.3.10
@@ -26,6 +29,7 @@ pycodestyle==2.14.0
 pyflakes==3.4.0
 Pygments==2.19.2
 pymongo==4.14.1
+pytest==8.4.2
 pytokens==0.1.10
 pytz==2025.2
 PyYAML==6.0.2
