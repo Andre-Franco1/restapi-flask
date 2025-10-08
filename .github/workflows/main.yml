@@ -25,10 +25,11 @@ jobs:
     permissions:
       id-token: write
       contents: read
-
     env:
       ecr_registry: 288761732111.dkr.ecr.us-east-1.amazonaws.com
       ecr_repository: restapi-ecr
+    outputs:
+      image_tag: ${{ steps.build.outputs.image_tag }}
 
     steps:
       - uses: actions/checkout@v3
@@ -38,8 +39,8 @@ jobs:
           role-to-assume: arn:aws:iam::288761732111:role/restapi-gh-actions-oidc-role
           role-session-name: github-actions-restapi
           aws-region: us-east-1
-
-      - name: Build Docker image
+      - id: build
+        name: Build Docker image
         run: |
           aws sts get-caller-identity
 
@@ -50,6 +51,8 @@ jobs:
 
           docker build -t ${ecr_registry}/${ecr_repository}:dev-${short_sha} .
           docker push ${ecr_registry}/${ecr_repository}:dev-${short_sha}
+
+          echo "image_tag=dev-${short_sha}" >> $GITHUB_OUTPUT
 
   deploy:
     needs: build
@@ -66,8 +69,10 @@ jobs:
           role-to-assume: arn:aws:iam::288761732111:role/restapi-gh-actions-oidc-role
           role-session-name: github-actions-restapi
           aws-region: us-east-1
-      - name: Deploy to Kubernetes
+      - env:
+          TAG: ${{ needs.build.outputs.image_tag }}
+        name: Deploy to Kubernetes
         run: |
           aws eks --region us-east-1 update-kubeconfig --name restapi-cluster
 
-          kubectl get node
+          echo ${TAG}
